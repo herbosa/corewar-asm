@@ -12,7 +12,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	asm
 
-CFLAGS	=	-W -Wall -Wextra -I include
+CFLAGS	=	-W -Wall -Wextra -I includes
 
 LDFLAGS	=	-L ./lib/str -lstr
 
