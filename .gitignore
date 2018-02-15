@@ -1,7 +1,5 @@
 *.a
 *.o
-asm
-corewar
 vgcore*
 *~
 #*
