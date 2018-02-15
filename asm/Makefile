@@ -5,7 +5,8 @@
 ## Makefile
 ##
 
-SRC	=	sources/main.c
+SRC	=	sources/main.c\
+		sources/write_nbr.c
 
 OBJ	=	$(SRC:.c=.o)
 
