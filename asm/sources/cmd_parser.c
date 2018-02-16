@@ -7,9 +7,10 @@
 
 #include "asm.h"
 
-int file_parser(char **file)
+int file_parser(char **file, op_t **code)
 {
 	int i = 0;
+	int ret = 0;
 
 	while (file[i]) {
 		file[i] = my_cleaner(file[i]);
@@ -21,15 +22,22 @@ int file_parser(char **file)
 		return (84);
 	if (!my_strncmp(file[1], ".comment ", 9))
 		return (84);
-	code_parser(file);
+	ret = code_parser(file, code);
+	return (ret);
 }
 
-void code_parser(char **file)
+int code_parser(char **file, op_t **code)
 {
-	int i = 0;
+	op_t op_tab[] = fill_op_tab()
+	int y = 3;
+	int x = 0;
+	int ret = check_label(file, y);
 
-	while (file[3][i]) {
-		
+	if (ret == 84)
+		return (84);
+	while (check_label(file, y) == 0) {
+		code[0][x] = cmd_parser();
+		x = x + 1;
 	}
 }
 
@@ -47,4 +55,20 @@ void shift_tab(char **tab, int i)
 		tab[i] = my_strcpy(tab[i], tab[i + 1]);
 		i = i + 1;
 	}
+}
+
+int check_label(char **file, int y)
+{
+	int x = 0;
+
+	while (my_is_in_str(LABEL_CHARS, file[y][x]))
+		x = x + 1;
+	if (!file[y][x])
+		return (84);
+	if (file[y][x] == ' ')
+		return (0);
+	else if (file[y][x] == ':')
+		return (1);
+	else
+		return (84);
 }

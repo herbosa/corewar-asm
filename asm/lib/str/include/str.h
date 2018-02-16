@@ -29,5 +29,7 @@ char *my_shift_str(char *str, int i);
 int my_strcmp(char *str, char *str2);
 int my_str_is_alpha(char *str);
 void display_tab(char **tab);
+int my_is_in_str(char *str, char c);
+int my_strncmp(char *str1, char *str2, int nb);
 
 #endif
