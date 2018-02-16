@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "str.h"
+#include "get_next_line.h"
 
 
 

@@ -6,7 +6,8 @@
 ##
 
 SRC	=	sources/main.c\
-		sources/write_nbr.c
+		sources/write_nbr.c\
+		sources/get_next_line.c
 
 OBJ	=	$(SRC:.c=.o)
 
