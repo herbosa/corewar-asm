@@ -91,13 +91,13 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return (84);
 	fd_s = open(argv[1], O_RDONLY);
-	if (fd == -1)
+	if (fd_s == -1)
 		return (84);
 	new_name = get_name(argv[1]);
 	if (new_name == NULL)
 		return (84);
-	fd_cor = open(name, O_CREAT | O_RDWR, S_IRWXU);
-	if (fd == -1)
+	fd_cor = open(new_name, O_CREAT | O_RDWR, S_IRWXU);
+	if (fd_cor == -1)
 		return (84);
 	return (0);
 }
