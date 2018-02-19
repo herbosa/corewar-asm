@@ -16,8 +16,9 @@
 #include <sys/stat.h>
 #include <stdarg.h>
 #include "str.h"
+#include "op.h"
 #include "get_next_line.h"
 
-
+int write_nbr();
 
 #endif

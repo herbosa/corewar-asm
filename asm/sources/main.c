@@ -82,6 +82,159 @@ char *get_name(char *name)
 	return (name);
 }
 
+char *get_header_name(char *name, char *s, int i)
+{
+	int j = 0;
+
+	name = malloc(sizeof(char) * my_strlen(s));
+	if (s[i] == '\0')
+		return (NULL);
+	while (s[i] != '"') {
+		i = i + 1;
+		if (s[i] == '\0')
+			return (NULL);
+	}
+	i = i + 1;
+	while (s[i] != '"') {
+		name[j] = s[i];
+		i = i + 1;
+		j = j + 1;
+		if (s[i] == '\0')
+			return (NULL);
+	}
+	name[j] = '\0';
+	return (name);
+}
+
+char *get_header_comment(char *name, char *s, int i)
+{
+	int j = 0;
+
+	name = malloc(sizeof(char) * my_strlen(s));
+	if (s[i] == '\0')
+		return (NULL);
+	while (s[i] != '"') {
+		i = i + 1;
+		if (s[i] == '\0')
+			return (NULL);
+	}
+	i = i + 1;
+	while (s[i] != '"') {
+		name[j] = s[i];
+		i = i + 1;
+		j = j + 1;
+		if (s[i] == '\0')
+			return (NULL);
+	}
+	name[j] = '\0';
+	return (name);
+}
+
+int verify_len(char *str, int max_len)
+{
+	if (my_strlen(str) > max_len) {
+		write(2, "name too long\n", 14);
+		return (-1);
+	}
+	return (0);
+}
+
+void fill_head_name(char *name, header_t *head)
+{
+	int i = 0;
+
+	for (i = 0; i <= PROG_NAME_LENGTH; i = i + 1)
+		head->prog_name[i] = '\0';
+	for (i = 0; name[i]; i = i + 1)
+                head->prog_name[i] = name[i];
+}
+
+void fill_head_comment(char *name, header_t *head)
+{
+	int i = 0;
+
+	for (i = 0; i <= COMMENT_LENGTH; i = i + 1)
+		head->comment[i] = '\0';
+	for (i = 0; name[i]; i = i + 1)
+                head->comment[i] = name[i];
+}
+
+int find_name(int fd_s, header_t *head)
+{
+	char *s = get_next_line(fd_s);
+	char *name = NULL;
+
+	if (s == NULL) {
+		write(2, ".name missing from header\n", 26);
+		return (84);
+	}
+	while (my_strncmp(".name", s, 5) == 0) {
+		s = get_next_line(fd_s);
+		if (s == NULL) {
+			write(2, ".name missing from header\n", 26);
+			return (84);
+		}
+	}
+	name = get_header_name(name, s, 5);
+	if (name == NULL || verify_len(name, PROG_NAME_LENGTH) == - 1)
+		return (84);
+	fill_head_name(name, head);
+	return (0);
+}
+
+int find_comment(int fd_s, header_t *head)
+{
+	char *s = get_next_line(fd_s);
+	char *name = NULL;
+
+	if (s == NULL) {
+		write(2, ".comment missing from header\n", 29);
+		return (84);
+	}
+	while (my_strncmp(".comment", s, 8) == 0) {
+		s = get_next_line(fd_s);
+		if (s == NULL) {
+			write(2, ".comment missing from header\n", 29);
+			return (84);
+		}
+	}
+	name = get_header_comment(name, s, 5);
+	if (name == NULL || verify_len(name, COMMENT_LENGTH) == - 1)
+		return (84);
+	fill_head_comment(name, head);
+	return (0);
+}
+
+int fill_header(header_t *head, int fd_s)
+{
+	head->magic = COREWAR_EXEC_MAGIC;
+	if (find_name(fd_s, head) == 84)
+		return (84);
+	if (find_comment(fd_s, head) == 84)
+		return (84);
+	return (0);
+}
+
+int write_head(int fd_s, int fd_cor)
+{
+	header_t head;
+	int a = 0x17;
+
+	if (fill_header(&head, fd_s) == 84)
+		return (84);
+	if (write_nbr(head.magic, fd_cor) == -1)
+		return (84);
+	if (write(fd_cor, head.prog_name, PROG_NAME_LENGTH) == -1)
+		return (84);
+	if (write_nbr(0, fd_cor) == -1)
+		return (84);
+	if (write_nbr(a, fd_cor) == -1)
+		return (84);
+	if (write(fd_cor, head.comment, COMMENT_LENGTH) == -1)
+		return (84);
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
 	int fd_s = 0;
@@ -98,6 +251,8 @@ int main(int argc, char **argv)
 		return (84);
 	fd_cor = open(new_name, O_CREAT | O_RDWR, S_IRWXU);
 	if (fd_cor == -1)
+		return (84);
+	if (write_head(fd_s, fd_cor) == 84)
 		return (84);
 	return (0);
 }
