@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <stdarg.h>
 #include "str.h"
 #include "get_next_line.h"
 

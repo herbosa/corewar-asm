@@ -17,8 +17,6 @@ void my_puterr(char *str);
 int my_strlen(char *str);
 int my_put_nbr(int nb);
 char *my_revstr(char *str);
-char *my_strcpy(char *dest, char const *src);
-char *my_strcat(char *res, char *buf);
 char **my_str_to_word_tab2(char *cmd, char **tab, char c);
 int my_atoi(char *str);
 int my_str_is_num(char *str);

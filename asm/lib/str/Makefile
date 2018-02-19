@@ -9,8 +9,6 @@ SRC	=	source/my_put_nbr.c		\
 		source/my_putchar.c		\
 		source/my_putstr.c		\
 		source/my_revstr.c		\
-		source/my_strcat.c		\
-		source/my_strcpy.c		\
 		source/my_strlen.c		\
 		source/my_str_to_word_tab.c	\
 		source/my_display_tab.c		\
@@ -19,7 +17,7 @@ SRC	=	source/my_put_nbr.c		\
 		source/my_cleaner.c		\
 		source/my_puterr.c		\
 		source/my_strcmp.c		\
-		source/my_str_is_alpha.c
+		source/my_str_is_alpha.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
