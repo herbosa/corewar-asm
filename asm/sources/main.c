@@ -232,6 +232,8 @@ int write_head(int fd_s, int fd_cor)
 		return (84);
 	if (write(fd_cor, head.comment, COMMENT_LENGTH) == -1)
 		return (84);
+	if (write_nbr(0, fd_cor) == -1)
+		return (84);
 	return (0);
 }
 
