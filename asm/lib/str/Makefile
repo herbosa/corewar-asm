@@ -23,7 +23,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	libstr.a
 
-CFLAGS	=	-W -Wall -Wextra -I include
+CFLAGS	=	-W -Wall -Wextra -I includes
 
 LDFLAGS	=	-lstr
 
