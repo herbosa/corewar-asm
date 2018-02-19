@@ -19,24 +19,48 @@ int file_parser(char **file, op_t **code)
 	while (file[0][0] == '#')
 		shift_tab(file, 0);
 	if (!my_strncmp(file[0], ".name ", 6))
-		return (84);
+		return (display_header_err(0));
 	if (!my_strncmp(file[1], ".comment ", 9))
-		return (84);
+		return (display_header_err(1));
 	ret = code_parser(file, code);
-	return (ret);
+	if (ret > 0) {
+		disp_syntax_err(ret);
+		return (84);
+	}
+	return (0);
 }
 
 int code_parser(char **file, op_t **code)
 {
-	op_t op_tab[] = fill_op_tab()
 	int y = 3;
 	int x = 0;
 	int ret = check_label(file, y);
 
 	if (ret == 84)
-		return (84);
+		return (y);
+	code[0] = malloc(sizeof(op_t*) * my_tablen(file));
 	while (check_label(file, y) == 0) {
 		code[0][x] = cmd_parser();
+		y = y + 1;
+		x = x + 1;
+	}
+	get_labels(file, y, code);
+	return (0);
+}
+
+void get_labels(char **file, int y, op_t **code)
+{
+	int x = 0;
+	int z = 0;
+	op_t op_tab[] = fill_op_tab();
+
+	while (file[y]) {
+		if (check_label(file[y]) == 1) {
+			z = z + 1;
+			x = 0;
+		}
+		code[z][x] = cmd_parser(file[y], op_tab);
+		y = y + 1;
 		x = x + 1;
 	}
 }
@@ -44,30 +68,27 @@ int code_parser(char **file, op_t **code)
 op_t cmd_parser(char *str, op_t op_tab[])
 {
 	op_t cmd;
+	char *label = malloc(sizeof(char) * my_strlen(str));
 
-
-}
-
-void shift_tab(char **tab, int i)
-{
-	while (tab[i + 1]) {
-		tab[i] = malloc(sizeof(char*) * (my_strlen(tab[i + 1]) + 1));
-		tab[i] = my_strcpy(tab[i], tab[i + 1]);
-		i = i + 1;
+	if (check_label(str) == 1) {
+		while (str[i] != ':') {
+			label[i] = str[i];
+			i = i + 1;
+		}
 	}
 }
 
-int check_label(char **file, int y)
+int check_label(char *str)
 {
 	int x = 0;
 
-	while (my_is_in_str(LABEL_CHARS, file[y][x]))
+	while (my_is_in_str(LABEL_CHARS, str[x]))
 		x = x + 1;
-	if (!file[y][x])
+	if (!str[x])
 		return (84);
-	if (file[y][x] == ' ')
+	if (str[x] == ' ')
 		return (0);
-	else if (file[y][x] == ':')
+	else if (str[x] == ':')
 		return (1);
 	else
 		return (84);
