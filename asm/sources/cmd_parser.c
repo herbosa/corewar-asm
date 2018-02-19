@@ -38,7 +38,7 @@ int code_parser(char **file, op_t **code)
 
 	if (ret == 84)
 		return (y);
-	code[0] = malloc(sizeof(op_t*) * my_tablen(file));
+	code[0] = malloc(sizeof(op_t *) * my_tablen(file));
 	while (check_label(file, y) == 0) {
 		code[0][x] = cmd_parser();
 		y = y + 1;
