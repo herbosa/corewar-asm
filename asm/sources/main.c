@@ -84,17 +84,20 @@ char *get_name(char *name)
 
 int main(int argc, char **argv)
 {
-	int fd = 0;
+	int fd_s = 0;
+	int fd_cor = 0;
 	char *new_name;
 
 	if (argc != 2)
 		return (84);
-	fd = open(argv[1], O_RDONLY);
+	fd_s = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (84);
 	new_name = get_name(argv[1]);
 	if (new_name == NULL)
 		return (84);
-	printf("%s\n", new_name);
+	fd_cor = open(name, O_CREAT | O_RDWR, S_IRWXU);
+	if (fd == -1)
+		return (84);
 	return (0);
 }
