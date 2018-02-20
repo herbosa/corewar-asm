@@ -237,6 +237,26 @@ int write_head(int fd_s, int fd_cor)
 	return (0);
 }
 
+char **file_to_tab(int fd_s)
+{
+	char *s = get_next_line(fd_s);
+	char **tab = malloc(sizeof(char *) * 2);
+	int i = 0;
+
+	if (s == NULL)
+		return (NULL);
+	while (s != NULL) {
+		tab = realloc(tab, sizeof(char *) * (i + 3));
+		if (tab == NULL)
+			return (NULL);
+		tab[i] = my_strdup(s);
+		tab[i + 1] = '\0';
+		s = get_next_line(fd_s);
+		i = i + 1;
+	}
+	return (tab);
+}
+
 int main(int argc, char **argv)
 {
 	int fd_s = 0;
