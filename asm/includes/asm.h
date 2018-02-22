@@ -20,5 +20,8 @@
 #include "get_next_line.h"
 
 int write_nbr();
+int write_head(int fd_s, int fd_cor, int a);
+int write_nbr_2(int nbr, int fd);
+int write_nbr_1(int nbr, int fd);
 
 #endif

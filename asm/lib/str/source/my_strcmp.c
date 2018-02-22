@@ -7,7 +7,7 @@
 
 #include "str.h"
 
-int my_strcmp(char *str, char *str2)
+int my_strcmp(char *str2, char *str)
 {
 	int i = 0;
 

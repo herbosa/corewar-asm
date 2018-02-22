@@ -6,7 +6,7 @@
 */
 
 #include "asm.h"
-int file_parser(char **file);
+int file_parser();
 
 char *my_strcpy(char *dest, char const *src)
 {
@@ -216,10 +216,9 @@ int fill_header(header_t *head, int fd_s)
 	return (0);
 }
 
-int write_head(int fd_s, int fd_cor)
+int write_head(int fd_s, int fd_cor, int a)
 {
 	header_t head;
-	int a = 0x17;
 
 	if (fill_header(&head, fd_s) == 84)
 		return (84);
@@ -273,11 +272,9 @@ int main(int argc, char **argv)
 	new_name = get_name(argv[1]);
 	if (new_name == NULL)
 		return (84);
-//	return(file_parser(file_to_tab(fd_s)));
 	fd_cor = open(new_name, O_CREAT | O_RDWR, S_IRWXU);
 	if (fd_cor == -1)
 		return (84);
-	if (write_head(fd_s, fd_cor) == 84)
-		return (84);
+	return(file_parser(file_to_tab(fd_s), fd_s, fd_cor));
 	return (0);
 }
