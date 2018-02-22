@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "get_next_line.h"
+#include "asm.h"
 
 char *gnl_strcpy(char *dest, char const *src, int j)
 {

@@ -14,4 +14,5 @@ void shift_tab(char **tab, int i)
 		tab[i] = my_strcpy(tab[i], tab[i + 1]);
 		i = i + 1;
 	}
+	tab[i] = '\0';
 }

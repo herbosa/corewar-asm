@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+char *my_strcpy();
 void my_putchar(char c);
 void my_putstr(char *str);
 void my_puterr(char *str);

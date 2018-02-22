@@ -7,15 +7,17 @@
 
 SRC	=	sources/main.c\
 		sources/write_nbr.c\
-		sources/get_next_line.c
+		sources/cmd_parser.c\
+		sources/get_next_line.c\
+		sources/error_handling.c
 
 OBJ	=	$(SRC:.c=.o)
 
 NAME	=	asm
 
-CFLAGS	=	-W -Wall -Wextra -I includes
+CFLAGS	=	-g -W -Wall -Wextra -I includes
 
-LDFLAGS	=	-L ./lib/str -lstr
+LDFLAGS	=	-g -L ./lib/str -lstr
 
 all:	libmake $(NAME)
 

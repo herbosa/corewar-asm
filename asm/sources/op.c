@@ -28,8 +28,10 @@ op_t fill_op_tab(void)
 			{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero"},
 			{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
 			 "load index"},
+			
 			{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
 			 "store index"},
+			
 			{"fork", 1, {T_DIR}, 12, 800, "fork"},
 			{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load"},
 			{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
