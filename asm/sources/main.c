@@ -239,7 +239,7 @@ int write_head(int fd_s, int fd_cor, int a)
 
 char **file_to_tab(int fd_s)
 {
-	char *s = get_next_line(fd_s);
+	char *s = get_next_line_2(fd_s);
 	char **tab = malloc(sizeof(char *) * 2);
 	int i = 0;
 
@@ -251,7 +251,7 @@ char **file_to_tab(int fd_s)
 			return (NULL);
 		tab[i] = my_strdup(s);
 		tab[i + 1] = '\0';
-		s = get_next_line(fd_s);
+		s = get_next_line_2(fd_s);
 		i = i + 1;
 	}
 	tab[i] = '\0';

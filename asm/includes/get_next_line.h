@@ -14,6 +14,7 @@
 #define GNL_H_
 
 char *get_next_line(int fd);
+char *get_next_line_2(int fd);
 
 struct gnl_t {
 	char *ret;

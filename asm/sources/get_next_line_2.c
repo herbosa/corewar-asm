@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-char *gnl_strcpy(char *dest, char const *src, int j)
+char *gnl_strcpy_2(char *dest, char const *src, int j)
 {
 	int i = 0;
 
@@ -22,7 +22,7 @@ char *gnl_strcpy(char *dest, char const *src, int j)
 	return (dest);
 }
 
-char *gnl_strcat(char *str, char *src, int x)
+char *gnl_strcat_2(char *str, char *src, int x)
 {
 	char *dest;
 	int j = 0;
@@ -32,7 +32,7 @@ char *gnl_strcat(char *str, char *src, int x)
 	for (z = z; src[z]; z = z + 1);
 	for (j = j; str[j]; j = j + 1);
 	dest = malloc(sizeof(char) * (j + 2) + z);
-	dest = gnl_strcpy(dest, str, 0);
+	dest = gnl_strcpy_2(dest, str, 0);
 	while (src[i] && i != x) {
 		dest[j + i] = src[i];
 		i = i + 1;
@@ -41,7 +41,7 @@ char *gnl_strcat(char *str, char *src, int x)
 	return (dest);
 }
 
-gnl_s *read_and_display_read_line(int fd, gnl_s *gnl, char *ret, int i)
+gnl_s *read_and_display_read_line_2(int fd, gnl_s *gnl, char *ret, int i)
 {
 	int nb_read = 0;
 	int j = 0;
@@ -58,14 +58,14 @@ gnl_s *read_and_display_read_line(int fd, gnl_s *gnl, char *ret, int i)
 	for (i = i; gnl->mem[i] != '\0'; i = i + 1)
 		if (gnl->mem[i] == '\n')
 			j = 1;
-	gnl->ret = gnl_strcat(gnl->ret, gnl->mem, -1);
+	gnl->ret = gnl_strcat_2(gnl->ret, gnl->mem, -1);
 	if (j != 0) {
 		return (gnl);
 	} else
-		read_and_display_read_line(fd, gnl, gnl->ret, 0);
+		read_and_display_read_line_2(fd, gnl, gnl->ret, 0);
 }
 
-gnl_s *more_line(gnl_s *gnl)
+gnl_s *more_line_2(gnl_s *gnl)
 {
 	int i = 0;
 	int j = 0;
@@ -80,13 +80,13 @@ gnl_s *more_line(gnl_s *gnl)
 			break;
 		}
 	if (j == 1 && gnl->cnt == 1) {
-		gnl->ret = gnl_strcat("\0", gnl->mem, i);
+		gnl->ret = gnl_strcat_2("\0", gnl->mem, i);
 		gnl->mem = gnl->mem + i + 1;
 	}
 	return (gnl);
 }
 
-char *get_next_line(int fd)
+char *get_next_line_2(int fd)
 {
 	static gnl_s *gnl;
 	int i = 0;
@@ -97,18 +97,18 @@ char *get_next_line(int fd)
 	}
 	if (start == NULL || fd < 0 || READ_SIZE < 0)
 		return (NULL);
-	gnl = more_line(gnl);
+	gnl = more_line_2(gnl);
 	if (gnl && gnl->cnt == 1)
 		return (gnl->ret);
 	if (gnl)
-		start = gnl_strcpy(start, gnl->mem, 0);
-	gnl = read_and_display_read_line(fd, gnl, start, 0);
+		start = gnl_strcpy_2(start, gnl->mem, 0);
+	gnl = read_and_display_read_line_2(fd, gnl, start, 0);
 	if (!gnl->ret)
 		return (NULL);
 	for (i = 0; gnl->mem[i] != '\n' && gnl->mem[i]; i = i + 1);
 	gnl->mem = gnl->mem + i + 1;
 	for (i = 0; gnl->ret[i] != '\n'; i = i + 1);
-	start = gnl_strcat("\0", gnl->ret, i);
+	start = gnl_strcat_2("\0", gnl->ret, i);
 	gnl->ret = NULL;
 	return (start);
 }

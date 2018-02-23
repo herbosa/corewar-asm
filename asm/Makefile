@@ -9,6 +9,7 @@ SRC	=	sources/main.c\
 		sources/write_nbr.c\
 		sources/cmd_parser.c\
 		sources/get_next_line.c\
+		sources/get_next_line_2.c\
 		sources/error_handling.c
 
 OBJ	=	$(SRC:.c=.o)
