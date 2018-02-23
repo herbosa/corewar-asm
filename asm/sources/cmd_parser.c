@@ -351,10 +351,6 @@ int file_parser(char **file, int fd_s, int fd_cor)
 	lseek(fd_s, 0, SEEK_SET);
 	while (file[0][0] == '#')
 		file++;
-	if (!my_strncmp(file[0], ".name ", 6))
-		return (display_header_err(0));
-	if (!my_strncmp(file[1], ".comment ", 9))
-		return (display_header_err(1));
 	while (file[0][0] == '#' || file[0][0] == '.' || file[0][0] == '\0')
 		file++;
 	inst = code_parser(file, len, inst);
