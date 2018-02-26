@@ -65,11 +65,13 @@ gnl_s *read_and_display_read_line_2(int fd, gnl_s *gnl, char *ret, int i)
 		read_and_display_read_line_2(fd, gnl, gnl->ret, 0);
 }
 
-gnl_s *more_line_2(gnl_s *gnl)
+gnl_s *more_line_2(gnl_s *gnl, char **start)
 {
 	int i = 0;
 	int j = 0;
 
+	if (!gnl)
+		*start[0] = '\0';
 	if (gnl) {
 		j = 1;
 		gnl->cnt = 0;
@@ -92,12 +94,9 @@ char *get_next_line_2(int fd)
 	int i = 0;
 	char *start = malloc(sizeof(char) * (READ_SIZE + 1));
 
-	if (!gnl) {
-		start[0] = '\0';
-	}
 	if (start == NULL || fd < 0 || READ_SIZE < 0)
 		return (NULL);
-	gnl = more_line_2(gnl);
+	gnl = more_line_2(gnl, &start);
 	if (gnl && gnl->cnt == 1)
 		return (gnl->ret);
 	if (gnl)
