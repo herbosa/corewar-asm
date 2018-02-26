@@ -120,6 +120,133 @@ int convert_param(int param)
 	return (res);
 }
 
+
+int cmd_ldi_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 1;
+		param = param + 100;
+	} else if (my_strncmp(inst[i][2], "%", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 1000;
+	} else {
+		my_puterr("invalid comand in ldi");
+		exit(84);
+	}
+	return (param);
+}
+
+int cmd_ldi_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	wrt_nbr[i][0]->nbr = 10;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 1;
+		param = param + 10000;
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 100000;
+	} else {
+		if (my_str_is_num(inst[i][1]) == 1)
+			wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 110000;
+	}
+	return (param);
+}
+
+void cmd_ldi(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	param = cmd_ldi_first_param(inst, wrt_nbr, i, param);
+	param = cmd_ldi_second_param(inst, wrt_nbr, i, param);
+	if (my_strncmp(inst[i][3], "r", 1) == 1) {
+		inst[i][3]++;
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 1;
+		param = param + 1;
+	} else {
+		my_puterr("invalid instruction in ldi");
+		exit(84);
+	}
+	wrt_nbr[i][4]->nbr = convert_param(param);
+	wrt_nbr[i][4]->size = 1;
+}
+
+int cmd_lldi_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 1;
+		param = param + 100;
+	} else if (my_strncmp(inst[i][2], "%", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 1000;
+	} else {
+		my_puterr("invalid comand in ldi");
+		exit(84);
+	}
+	return (param);
+}
+
+int cmd_lldi_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	wrt_nbr[i][0]->nbr = 14;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 1;
+		param = param + 10000;
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 100000;
+	} else {
+		if (my_str_is_num(inst[i][1]) == 1)
+			wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 110000;
+	}
+	return (param);
+}
+
+void cmd_lldi(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	param = cmd_lldi_first_param(inst, wrt_nbr, i, param);
+	param = cmd_lldi_second_param(inst, wrt_nbr, i, param);
+	if (my_strncmp(inst[i][3], "r", 1) == 1) {
+		inst[i][3]++;
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 1;
+		param = param + 1;
+	} else {
+		my_puterr("invalid instruction in lldi");
+		exit(84);
+	}
+	wrt_nbr[i][4]->nbr = convert_param(param);
+	wrt_nbr[i][4]->size = 1;
+}
+
 int cmd_sti_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param)
 {
@@ -205,6 +332,155 @@ int cmd_and_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 	return (param);
 }
 
+void cmd_and(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	param = cmd_and_first_param(inst, wrt_nbr, i, param);
+	param = cmd_and_second_param(inst, wrt_nbr, i, param);
+	if (my_strncmp(inst[i][3], "r", 1) == 1) {
+		inst[i][3]++;
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 1;
+		param = param + 1;
+	} else {
+		my_puterr("invalid instruction in and");
+		exit(84);
+	}
+	wrt_nbr[i][4]->nbr = convert_param(param);
+	wrt_nbr[i][4]->size = 1;
+}
+
+int cmd_xor_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 1;
+		param = param + 100;
+	} else if (my_strncmp(inst[i][2], "%", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 4;
+		param = param + 1000;
+	} else {
+		if (my_str_is_num(inst[i][2]) == 1)
+			wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 1100;
+	}
+	return (param);
+}
+
+int cmd_xor_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	wrt_nbr[i][0]->nbr = 8;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 1;
+		param = param + 10000;
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 4;
+		param = param + 100000;
+	} else {
+		if (my_str_is_num(inst[i][1]) == 1)
+			wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 110000;
+	}
+	return (param);
+}
+
+void cmd_xor(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	param = cmd_xor_first_param(inst, wrt_nbr, i, param);
+	param = cmd_xor_second_param(inst, wrt_nbr, i, param);
+	if (my_strncmp(inst[i][3], "r", 1) == 1) {
+		inst[i][3]++;
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 1;
+		param = param + 1;
+	} else {
+		my_puterr("invalid instruction in xor");
+		exit(84);
+	}
+	wrt_nbr[i][4]->nbr = convert_param(param);
+	wrt_nbr[i][4]->size = 1;
+}
+
+int cmd_or_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 1;
+		param = param + 100;
+	} else if (my_strncmp(inst[i][2], "%", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 4;
+		param = param + 1000;
+	} else {
+		if (my_str_is_num(inst[i][2]) == 1)
+			wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 1100;
+	}
+	return (param);
+}
+
+int cmd_or_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	wrt_nbr[i][0]->nbr = 7;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 1;
+		param = param + 10000;
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 4;
+		param = param + 100000;
+	} else {
+		if (my_str_is_num(inst[i][1]) == 1)
+			wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 110000;
+	}
+	return (param);
+}
+
+void cmd_or(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	param = cmd_or_first_param(inst, wrt_nbr, i, param);
+	param = cmd_or_second_param(inst, wrt_nbr, i, param);
+	if (my_strncmp(inst[i][3], "r", 1) == 1) {
+		inst[i][3]++;
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 1;
+		param = param + 1;
+	} else {
+		my_puterr("invalid instruction in or");
+		exit(84);
+	}
+	wrt_nbr[i][4]->nbr = convert_param(param);
+	wrt_nbr[i][4]->size = 1;
+}
+
 void cmd_sti(char ***inst, wrt_t ***wrt_nbr, int i)
 {
 	int param = 0;
@@ -229,23 +505,204 @@ void cmd_sti(char ***inst, wrt_t ***wrt_nbr, int i)
 	wrt_nbr[i][4]->size = 1;
 }
 
-void cmd_and(char ***inst, wrt_t ***wrt_nbr, int i)
+int cmd_ld_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 1;
+		param = param + 100;
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		my_puterr("invalid instruction in ld");
+		exit(84);
+	} else {
+		if (my_str_is_num(inst[i][2]) == 1)
+			wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 1100;
+	}
+	return (param);
+}
+
+void cmd_ld(char ***inst, wrt_t ***wrt_nbr, int i)
 {
 	int param = 0;
 
-	param = cmd_and_first_param(inst, wrt_nbr, i, param);
-	param = cmd_and_second_param(inst, wrt_nbr, i, param);
-	if (my_strncmp(inst[i][3], "r", 1) == 1) {
-		inst[i][3]++;
-		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
-		wrt_nbr[i][3]->size = 1;
-		param = param + 1;
+	wrt_nbr[i][0]->nbr = 2;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 10000;
 	} else {
-		my_puterr("invalid instruction in and");
+		my_puterr("invalid instruction in ld");
 		exit(84);
 	}
+	param = cmd_ld_second_param(inst, wrt_nbr, i, param);
+	wrt_nbr[i][3]->nbr = convert_param(param);
+	wrt_nbr[i][3]->size = 1;
+}
+
+int cmd_lld_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		inst[i][2]++;
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 1;
+		param = param + 100;
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		my_puterr("invalid instruction in ld");
+		exit(84);
+	} else {
+		if (my_str_is_num(inst[i][2]) == 1)
+			wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 1100;
+	}
+	return (param);
+}
+
+void cmd_lld(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	wrt_nbr[i][0]->nbr = 13;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 10000;
+	} else {
+		my_puterr("invalid instruction in lld");
+		exit(84);
+	}
+	param = cmd_lld_second_param(inst, wrt_nbr, i, param);
+	wrt_nbr[i][3]->nbr = convert_param(param);
+	wrt_nbr[i][3]->size = 1;
+}
+
+int cmd_sub_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+			int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 100;
+	} else {
+		my_puterr("invalid instruction in sub");
+		exit(84);
+	}
+	if (my_strncmp(inst[i][3], "r", 1) == 1) {
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 2;
+		param = param + 1;
+	} else {
+		my_puterr("invalid instruction in sub");
+		exit(84);
+	}
+	return (param);
+}
+
+void cmd_sub(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	wrt_nbr[i][0]->nbr = 5;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 10000;
+	} else {
+		my_puterr("invalid instruction in sub");
+		exit(84);
+	}
+	param = cmd_sub_second_param(inst, wrt_nbr, i, param);
 	wrt_nbr[i][4]->nbr = convert_param(param);
 	wrt_nbr[i][4]->size = 1;
+}
+
+int cmd_add_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+			int param)
+{
+	if (my_strncmp(inst[i][2], "r", 1) == 1) {
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
+		wrt_nbr[i][2]->size = 2;
+		param = param + 100;
+	} else {
+		my_puterr("invalid instruction in add");
+		exit(84);
+	}
+	if (my_strncmp(inst[i][3], "r", 1) == 1) {
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 2;
+		param = param + 1;
+	} else {
+		my_puterr("invalid instruction in add");
+		exit(84);
+	}
+	return (param);
+}
+
+void cmd_add(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	wrt_nbr[i][0]->nbr = 4;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 10000;
+	} else {
+		my_puterr("invalid instruction in add");
+		exit(84);
+	}
+	param = cmd_add_second_param(inst, wrt_nbr, i, param);
+	wrt_nbr[i][4]->nbr = convert_param(param);
+	wrt_nbr[i][4]->size = 1;
+}
+
+int cmd_st_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param)
+{
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 1;
+		param = param + 10000;
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		my_puterr("invalid instruction in st");
+		exit(84);
+	} else {
+		if (my_str_is_num(inst[i][1]) == 1)
+			wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 110000;
+	}
+	return (param);
+}
+
+void cmd_st(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	int param = 0;
+
+	wrt_nbr[i][0]->nbr = 3;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 1;
+		param = param + 10000;
+	} else {
+		my_puterr("invalid instruction in st");
+		exit(84);
+	}
+	param = cmd_ld_second_param(inst, wrt_nbr, i, param);
+	wrt_nbr[i][3]->nbr = convert_param(param);
+	wrt_nbr[i][3]->size = 1;
 }
 
 void cmd_live(char ***inst, wrt_t ***wrt_nbr, int i)
@@ -262,6 +719,34 @@ void cmd_live(char ***inst, wrt_t ***wrt_nbr, int i)
 	}
 }
 
+void cmd_fork(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	wrt_nbr[i][0]->nbr = 1;
+	wrt_nbr[i][0]->size = 12;
+	if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+	} else {
+		my_puterr("invalid instruction in fork");
+		exit(84);
+	}
+}
+
+void cmd_lfork(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	wrt_nbr[i][0]->nbr = 1;
+	wrt_nbr[i][0]->size = 15;
+	if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+	} else {
+		my_puterr("invalid instruction in lfork");
+		exit(84);
+	}
+}
+
 void cmd_zjmp(char ***inst, wrt_t ***wrt_nbr, int i)
 {
 	wrt_nbr[i][0]->nbr = 9;
@@ -272,6 +757,20 @@ void cmd_zjmp(char ***inst, wrt_t ***wrt_nbr, int i)
 		wrt_nbr[i][1]->size = 2;
 	} else {
 		my_puterr("invalid instruction in zjmp");
+		exit(84);
+	}
+}
+
+void cmd_aff(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	wrt_nbr[i][0]->nbr = 16;
+	wrt_nbr[i][0]->size = 1;
+	if (my_strncmp(inst[i][1], "r", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 1;
+	} else {
+		my_puterr("invalid instruction in aff");
 		exit(84);
 	}
 }
