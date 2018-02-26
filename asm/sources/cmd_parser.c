@@ -216,8 +216,13 @@ void cmd_sti(char ***inst, wrt_t ***wrt_nbr, int i)
 		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
 		wrt_nbr[i][3]->size = 1;
 		param = param + 1;
+	} else if (my_strncmp(inst[i][3], "%", 1) == 1) {
+		inst[i][3]++;
+		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
+		wrt_nbr[i][3]->size = 2;
+		param = param + 10;
 	} else {
-		my_puterr("invalid instruction in and");
+		my_puterr("invalid instruction in sti");
 		exit(84);
 	}
 	wrt_nbr[i][4]->nbr = convert_param(param);
