@@ -879,7 +879,7 @@ int file_parser(char **file, int fd_s, int fd_cor)
 	lseek(fd_s, 0, SEEK_SET);
 	while (file[0][0] == '#')
 		file++;
-	while (file[0][0] == '#' || file[0][0] == '.' || file[0][0] == '\0')
+	while (file[0] && (file[0][0] == '#' || file[0][0] == '.' || file[0][0] == '\0'))
 		file++;
 	inst = code_parser(file, len, inst);
 	if (inst == NULL)
