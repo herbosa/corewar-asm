@@ -574,7 +574,7 @@ void cmd_lld(char ***inst, wrt_t ***wrt_nbr, int i)
 	param = cmd_ld_first_param(inst, wrt_nbr, i, param);
 	if (my_strncmp(inst[i][2], "r", 1) == 1) {
 		inst[i][2]++;
-		wrt_nbr[i][2]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
 		wrt_nbr[i][2]->size = 1;
 		param = param + 100;
 	} else {
@@ -743,8 +743,8 @@ void cmd_fork(char ***inst, wrt_t ***wrt_nbr, int i)
 
 void cmd_lfork(char ***inst, wrt_t ***wrt_nbr, int i)
 {
-	wrt_nbr[i][0]->nbr = 1;
-	wrt_nbr[i][0]->size = 15;
+	wrt_nbr[i][0]->nbr = 15;
+	wrt_nbr[i][0]->size = 1;
 	if (my_strncmp(inst[i][1], "%", 1) == 1) {
 		inst[i][1]++;
 		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
@@ -837,7 +837,7 @@ wrt_t*** compile_file(char ***inst, int len)
 		if (my_strcmp(inst[i][0], "lldi\0") == 1)
 			cmd_lldi(inst, wrt_nbr, i);
 		if (my_strcmp(inst[i][0], "lfork\0") == 1)
-			cmd_fork(inst, wrt_nbr, i);
+			cmd_lfork(inst, wrt_nbr, i);
 		if (my_strcmp(inst[i][0], "aff\0") == 1)
 			cmd_aff(inst, wrt_nbr, i);
 	}
