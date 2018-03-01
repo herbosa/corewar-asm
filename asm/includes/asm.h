@@ -23,5 +23,8 @@ int write_nbr();
 int write_head(int fd_s, int fd_cor, int a);
 int write_nbr_2(int nbr, int fd);
 int write_nbr_1(int nbr, int fd);
+int display_header_err(int bo);
+void disp_syntax_err(int nb);
+char *my_strcpy();
 
 #endif
