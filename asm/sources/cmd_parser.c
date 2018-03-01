@@ -591,7 +591,7 @@ int cmd_sub_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 	if (my_strncmp(inst[i][2], "r", 1) == 1) {
 		inst[i][2]++;
 		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
-		wrt_nbr[i][2]->size = 2;
+		wrt_nbr[i][2]->size = 1;
 		param = param + 100;
 	} else {
 		my_puterr("invalid instruction in sub");
@@ -600,7 +600,7 @@ int cmd_sub_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 	if (my_strncmp(inst[i][3], "r", 1) == 1) {
 		inst[i][3]++;
 		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
-		wrt_nbr[i][3]->size = 2;
+		wrt_nbr[i][3]->size = 1;
 		param = param + 1;
 	} else {
 		my_puterr("invalid instruction in sub");
@@ -618,7 +618,7 @@ void cmd_sub(char ***inst, wrt_t ***wrt_nbr, int i)
 	if (my_strncmp(inst[i][1], "r", 1) == 1) {
 		inst[i][1]++;
 		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
-		wrt_nbr[i][1]->size = 2;
+		wrt_nbr[i][1]->size = 1;
 		param = param + 10000;
 	} else {
 		my_puterr("invalid instruction in sub");
@@ -729,8 +729,8 @@ void cmd_live(char ***inst, wrt_t ***wrt_nbr, int i)
 
 void cmd_fork(char ***inst, wrt_t ***wrt_nbr, int i)
 {
-	wrt_nbr[i][0]->nbr = 1;
-	wrt_nbr[i][0]->size = 12;
+	wrt_nbr[i][0]->nbr = 12;
+	wrt_nbr[i][0]->size = 1;
 	if (my_strncmp(inst[i][1], "%", 1) == 1) {
 		inst[i][1]++;
 		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
@@ -771,16 +771,21 @@ void cmd_zjmp(char ***inst, wrt_t ***wrt_nbr, int i)
 
 void cmd_aff(char ***inst, wrt_t ***wrt_nbr, int i)
 {
+	int param = 0;
+
 	wrt_nbr[i][0]->nbr = 16;
 	wrt_nbr[i][0]->size = 1;
 	if (my_strncmp(inst[i][1], "r", 1) == 1) {
 		inst[i][1]++;
 		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
 		wrt_nbr[i][1]->size = 1;
+		param = param + 10000;
 	} else {
 		my_puterr("invalid instruction in aff");
 		exit(84);
 	}
+	wrt_nbr[i][2]->nbr = convert_param(param);
+	wrt_nbr[i][2]->size = 1;
 }
 
 void disp_strc(wrt_t ***wrt_nbr) {
