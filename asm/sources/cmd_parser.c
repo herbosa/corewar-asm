@@ -552,7 +552,7 @@ int cmd_lld_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 		inst[i][1]++;
 		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
 		wrt_nbr[i][1]->size = 1;
-		param = param + 100;
+		param = param + 10000;
 	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
 		my_puterr("invalid instruction in ld");
 		exit(84);
@@ -560,7 +560,7 @@ int cmd_lld_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 		if (my_str_is_num(inst[i][1]) == 1)
 			wrt_nbr[i][1]->nbr = my_atoi(inst[i][2]);
 		wrt_nbr[i][1]->size = 2;
-		param = param + 1100;
+		param = param + 110000;
 	}
 	return (param);
 }
@@ -575,8 +575,8 @@ void cmd_lld(char ***inst, wrt_t ***wrt_nbr, int i)
 	if (my_strncmp(inst[i][2], "r", 1) == 1) {
 		inst[i][2]++;
 		wrt_nbr[i][2]->nbr = my_atoi(inst[i][1]);
-		wrt_nbr[i][2]->size = 2;
-		param = param + 10000;
+		wrt_nbr[i][2]->size = 1;
+		param = param + 100;
 	} else {
 		my_puterr("invalid instruction in lld");
 		exit(84);
