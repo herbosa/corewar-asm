@@ -272,9 +272,9 @@ int main(int argc, char **argv)
 	new_name = get_name(argv[1]);
 	if (new_name == NULL)
 		return (84);
-	fd_cor = open(new_name, O_CREAT | O_RDWR, S_IRWXU);
+	fd_cor = open(new_name, O_CREAT | O_RDWR, S_IROTH |
+		S_IRUSR | S_IRGRP | S_IWUSR | S_IWGRP);
 	if (fd_cor == -1)
 		return (84);
 	return(file_parser(file_to_tab(fd_s), fd_s, fd_cor));
-	return (0);
 }
