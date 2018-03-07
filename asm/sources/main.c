@@ -8,6 +8,28 @@
 #include "asm.h"
 int file_parser();
 
+char *my_strncpy(char *dest, char const *src, int i)
+{
+	int j = 0;
+
+	while (j < i && src[j]) {
+		dest[j] = src[j];
+		j = j + 1;
+	}
+	dest[j] = 0;
+	return (dest);
+}
+
+char *my_strndup(char *str, int i)
+{
+	char *s = malloc(sizeof(char) * my_strlen(str) + 2);
+
+	if (s == 0)
+		return (0);
+	my_strncpy(s, str, i);
+	return (s);
+}
+
 char *my_strcpy(char *dest, char const *src)
 {
 	int j = 0;
@@ -19,7 +41,6 @@ char *my_strcpy(char *dest, char const *src)
 	dest[j] = 0;
 	return (dest);
 }
-
 
 char *my_strdup(char *str)
 {
@@ -242,19 +263,31 @@ char **file_to_tab(int fd_s)
 	char *s = get_next_line_2(fd_s);
 	char **tab = malloc(sizeof(char *) * 2);
 	int i = 0;
+	int x = 0;
 
 	if (s == NULL)
 		return (NULL);
+	s = my_cleaner(s);
 	while (s != NULL) {
 		tab = realloc(tab, sizeof(char *) * (i + 3));
 		if (tab == NULL)
 			return (NULL);
+		for (x = 0; x < my_strlen(s); x = x + 1) {
+			if (s[x] == ' ' && s[x - 1] == ':')
+				tab[i] = my_strndup(s, x - 1);
+				s = s + x;
+				i = i + 1;
+				tab = realloc(tab, sizeof(char *) * (i + 3));
+				x = my_strlen(s);
+		}
 		tab[i] = my_strdup(s);
 		tab[i + 1] = '\0';
 		s = get_next_line_2(fd_s);
+		s = my_cleaner(s);
 		i = i + 1;
 	}
 	tab[i] = '\0';
+	display_tab(tab);
 	return (tab);
 }
 

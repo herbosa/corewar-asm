@@ -13,8 +13,8 @@ int my_str_is_alpha(char *str)
 	int count = 0;
 
 	while (str[i]) {
-		if ((str[i] >= 'A' && str[i] <= 'Z') ||
-		(str[i] >= 'a' && str[i] <= 'z'))
+		if ((str[i] >= '0' && str[i] <= '9') ||
+		(str[i] >= 'a' && str[i] <= 'z') || str[i] == '_')
 			count = count + 1;
 		i = i + 1;
 	}
