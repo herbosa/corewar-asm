@@ -267,27 +267,25 @@ char **file_to_tab(int fd_s)
 
 	if (s == NULL)
 		return (NULL);
-	s = my_cleaner(s);
 	while (s != NULL) {
 		tab = realloc(tab, sizeof(char *) * (i + 3));
 		if (tab == NULL)
 			return (NULL);
 		for (x = 0; x < my_strlen(s); x = x + 1) {
-			if (s[x] == ' ' && s[x - 1] == ':')
+			if (s[x] == ' ' && s[x - 1] == ':') {
 				tab[i] = my_strndup(s, x - 1);
 				s = s + x;
 				i = i + 1;
 				tab = realloc(tab, sizeof(char *) * (i + 3));
 				x = my_strlen(s);
+			}
 		}
 		tab[i] = my_strdup(s);
 		tab[i + 1] = '\0';
 		s = get_next_line_2(fd_s);
-		s = my_cleaner(s);
 		i = i + 1;
 	}
 	tab[i] = '\0';
-	display_tab(tab);
 	return (tab);
 }
 
