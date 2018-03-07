@@ -258,34 +258,43 @@ int write_head(int fd_s, int fd_cor, int a)
 	return (0);
 }
 
+char **clean_label(char *s, int *i, char **tab)
+{
+	int x = 0;
+	int j = *i;
+
+	for (x = 1; x < my_strlen(s); x = x + 1) {
+		if ((s[x] == ' ' || s[x] == '\t') && s[x - 1] == ':') {
+			tab[*i] = my_strndup(s, x);
+			s = s + x;
+			*i = *i + 1;
+			tab = realloc(tab, sizeof(char *) * (j + 4));
+			x = my_strlen(s);
+		}
+	}
+	tab[*i] = my_strdup(s);
+	tab[*i + 1] = '\0';
+	return (tab);
+}
+
 char **file_to_tab(int fd_s)
 {
 	char *s = get_next_line_2(fd_s);
 	char **tab = malloc(sizeof(char *) * 2);
 	int i = 0;
-	int x = 0;
 
 	if (s == NULL)
 		return (NULL);
 	while (s != NULL) {
-		tab = realloc(tab, sizeof(char *) * (i + 3));
+		tab = realloc(tab, sizeof(char *) * (i + 4));
 		if (tab == NULL)
 			return (NULL);
-		for (x = 0; x < my_strlen(s); x = x + 1) {
-			if (s[x] == ' ' && s[x - 1] == ':') {
-				tab[i] = my_strndup(s, x - 1);
-				s = s + x;
-				i = i + 1;
-				tab = realloc(tab, sizeof(char *) * (i + 3));
-				x = my_strlen(s);
-			}
-		}
-		tab[i] = my_strdup(s);
-		tab[i + 1] = '\0';
+		tab = clean_label(s, &i, tab);
 		s = get_next_line_2(fd_s);
 		i = i + 1;
 	}
 	tab[i] = '\0';
+	display_tab(tab);
 	return (tab);
 }
 
