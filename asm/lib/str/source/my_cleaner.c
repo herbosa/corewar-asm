@@ -21,6 +21,8 @@ char *my_cleaner(char *str)
 	for (i = 0; str[i]; i = i + 1)
 		if (str[i] == ' ' && str[i - 1] == ',')
 			str = my_shift_str(str, i);
+		else if (str[i] == ' ' && str[i + 1] == ',')
+			str = my_shift_str(str, i);
 	return (str);
 }
 

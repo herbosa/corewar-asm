@@ -296,8 +296,74 @@ char **file_to_tab(int fd_s)
 	tab[i] = '\0';
 	for (i = 0; tab[i]; i = i + 1)
 		tab[i] = my_cleaner(tab[i]);
-	display_tab(tab);
+	check_instr(tab);
+
 	return (tab);
+}
+
+
+int is_label_char(char c)
+{
+	char *str = my_strdup("abcdefghijklmnopqrstuvwxyz_0123456789");
+	int i = 0;
+
+	for (i = 0; str[i]; i = i + 1) {
+		if (c == str[i])
+			return (1);
+	}
+	return (0);
+}
+
+int verify_instr(char *str, int i)
+{
+	char *instr = my_strndup(str, i);
+
+	if (my_strcmp(instr, "live") || my_strcmp(instr, "ld") ||
+		my_strcmp(instr, "st") || my_strcmp(instr, "add") ||
+		my_strcmp(instr, "sub") || my_strcmp(instr, "and") ||
+		my_strcmp(instr, "or") || my_strcmp(instr, "xor") ||
+		my_strcmp(instr, "zjmp") || my_strcmp(instr, "ldi") ||
+		my_strcmp(instr, "sti") || my_strcmp(instr, "fork") ||
+		my_strcmp(instr, "lld") || my_strcmp(instr, "lldi") ||
+		my_strcmp(instr, "lfork") || my_strcmp(instr, "aff"))
+			return (1);
+	else
+		return (0);
+}
+
+void check_valid_instr(char **tab)
+{
+	int x = 0;
+	int y = 0;
+	int i = 0;
+
+	for (y = 2; tab[y]; y = y + 1)
+		for (x = 0; tab[y][x]; x = x + 1)
+			if (tab[y][0] != '.' && tab[y][0] != '#' && tab[y][x] == ' ') {
+				if (!verify_instr(tab[y], x)) {
+					my_puterr("Unknow instruction :\t");
+					my_puterr(tab[y]);
+					my_puterr("\n");
+					exit (84);
+				}
+			}
+}
+
+void check_instr(char **tab)
+{
+	int x = 0;
+	int y = 0;
+	int i = 0;
+
+	for (y = 0; tab[y]; y = y + 1)
+		for (x = 1; tab[y][x]; x = x + 1) {
+			if (tab[y][x] == ':' && tab[y][x - 1] != '%') {
+				for (i = 0; i < x; i = i + 1)
+					if (!is_label_char(tab[y][i]))
+						exit (84);
+			}
+		}
+	check_valid_instr(tab);
 }
 
 int main(int argc, char **argv)

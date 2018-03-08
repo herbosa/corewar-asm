@@ -26,5 +26,6 @@ int write_nbr_1(int nbr, int fd);
 int display_header_err(int bo);
 void disp_syntax_err(int nb);
 char *my_strcpy();
+void check_instr();
 
 #endif
