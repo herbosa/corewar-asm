@@ -966,7 +966,7 @@ int file_parser(char **file, int fd_s, int fd_cor)
 	wrt_nbr = compile_file(inst, len);
 	wrt_nbr = parse_label(inst, wrt_nbr);
 	if (write_head(fd_s, fd_cor, get_progsize(wrt_nbr)) == 84)
-                return (84);
+		return (84);
 	if (write_inst(wrt_nbr, fd_cor) == 84)
                 return (84);
 	return (0);

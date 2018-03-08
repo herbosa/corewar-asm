@@ -265,6 +265,8 @@ char **clean_label(char *s, int *i, char **tab)
 
 	for (x = 1; x < my_strlen(s); x = x + 1) {
 		if ((s[x] == ' ' || s[x] == '\t') && s[x - 1] == ':') {
+			if (x >= 2 && s[x - 2] == '%')
+				exit(84);
 			tab[*i] = my_strndup(s, x);
 			s = s + x;
 			*i = *i + 1;
@@ -297,7 +299,6 @@ char **file_to_tab(int fd_s)
 	for (i = 0; tab[i]; i = i + 1)
 		tab[i] = my_cleaner(tab[i]);
 	check_instr(tab);
-
 	return (tab);
 }
 
