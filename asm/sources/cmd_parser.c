@@ -854,20 +854,22 @@ int get_progsize(wrt_t ***wrt_nbr)
 	int j = 0;
 
 	for (i = 0; wrt_nbr[i]; i = i + 1)
-		for (j = 0; wrt_nbr[i][j]; j = j + 1) {
+		for (j = 0; wrt_nbr[i][j]; j = j + 1)
 			res = res + wrt_nbr[i][j]->size;
-		}
 	return (res);
 }
 
 void write_wrt_nbr(wrt_t ***wrt_nbr, int fd_cor, int i, int j)
 {
-	if (wrt_nbr[i][j]->size == 1)
-		write_nbr_1(wrt_nbr[i][j]->nbr, fd_cor);
-	if (wrt_nbr[i][j]->size == 2)
-		write_nbr_2(wrt_nbr[i][j]->nbr, fd_cor);
-	if (wrt_nbr[i][j]->size == 4)
-		write_nbr(wrt_nbr[i][j]->nbr, fd_cor);
+	if (wrt_nbr[i][j]->nbr >= 0 && wrt_nbr[i][j]->size != 2) {
+		if (wrt_nbr[i][j]->size == 1)
+			write_nbr_1(wrt_nbr[i][j]->nbr, fd_cor);
+		if (wrt_nbr[i][j]->size == 2)
+			write_nbr_2(wrt_nbr[i][j]->nbr, fd_cor);
+		if (wrt_nbr[i][j]->size == 4)
+			write_nbr(wrt_nbr[i][j]->nbr, fd_cor);
+	} else 
+		write_nbr_2((wrt_nbr[i][j]->nbr + 65536), fd_cor);
 }
 
 int write_inst(wrt_t ***wrt_nbr, int fd_cor)
@@ -894,8 +896,9 @@ int get_label_pos(char *label, char ***inst)
 		if (my_strncmp(label, inst[i][0], my_strlen(label)) == 1 &&
 			inst[i][0][my_strlen(label)] == ':')
 			return (i);
-	my_puterr("Undefined Label :");
+	my_puterr("Undefined Label :\t");
 	my_puterr(label);
+	my_puterr("\n");
 	exit(84);
 }
 
@@ -943,9 +946,8 @@ wrt_t ***parse_label(char ***inst, wrt_t ***wrt_nbr)
 	int j = 0;
 
 	for (i = 0; inst[i]; i = i + 1)
-		for (j = 0; inst[i][j]; j = j + 1) {
+		for (j = 0; inst[i][j]; j = j + 1)
 			wrt_nbr = get_label(inst, wrt_nbr, i, j);
-		}
 	return (wrt_nbr);
 }
 
