@@ -315,6 +315,65 @@ int is_label_char(char c)
 	return (0);
 }
 
+int count_coma(char *str)
+{
+	int i = 0;
+	int nbr = 0;
+
+	for (i = 0; str[i]; i = i + 1)
+		if (str[i] == ',')
+			nbr = nbr + 1;
+	return (nbr);
+}
+
+void check_nbr_arg_3(char *str)
+{
+	if ((my_strncmp("lldi ", str, 5) ||
+	my_strncmp("sti ", str, 4) ||
+	my_strncmp("ldi ", str, 4) ||
+	my_strncmp("xor ", str, 4) ||
+	my_strncmp("or ", str, 3) ||
+	my_strncmp("add ", str, 4) ||
+	my_strncmp("sub ", str, 4) ||
+	my_strncmp("and ", str, 4))
+	&& count_coma(str) != 2) {
+		my_puterr("Invalid number of argument in :\t");
+		my_puterr(str);
+		my_puterr("\n");
+		exit(84);
+	}
+}
+
+void check_nbr_arg_2(char *str)
+{
+	if ((my_strncmp("st ", str, 3) ||
+	my_strncmp("ld ", str, 3) ||
+	my_strncmp("lld ", str, 4))
+	&& count_coma(str) != 1) {
+		my_puterr("Invalid number of argument in :\t");
+		my_puterr(str);
+		my_puterr("\n");
+		exit(84);
+	}
+}
+
+void check_nbr_arg(char *str)
+{
+	if ((my_strncmp("live ", str, 5) ||
+	my_strncmp("zjmp ", str, 5) ||
+	my_strncmp("fork ", str, 5) ||
+	my_strncmp("lfork ", str, 6) ||
+	my_strncmp("aff ", str, 4))
+	&& count_coma(str) != 0) {
+		my_puterr("Invalid number of argument in :\t");
+		my_puterr(str);
+		my_puterr("\n");
+		exit(84);
+	}
+	check_nbr_arg_2(str);
+	check_nbr_arg_3(str);
+}
+
 int verify_instr(char *str, int i)
 {
 	char *instr = my_strndup(str, i);
@@ -326,9 +385,10 @@ int verify_instr(char *str, int i)
 		my_strcmp(instr, "zjmp") || my_strcmp(instr, "ldi") ||
 		my_strcmp(instr, "sti") || my_strcmp(instr, "fork") ||
 		my_strcmp(instr, "lld") || my_strcmp(instr, "lldi") ||
-		my_strcmp(instr, "lfork") || my_strcmp(instr, "aff"))
-			return (1);
-	else
+		my_strcmp(instr, "lfork") || my_strcmp(instr, "aff")) {
+		check_nbr_arg(str);
+		return (1);
+	} else
 		return (0);
 }
 
