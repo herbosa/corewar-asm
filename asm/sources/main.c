@@ -294,6 +294,8 @@ char **file_to_tab(int fd_s)
 		i = i + 1;
 	}
 	tab[i] = '\0';
+	for (i = 0; tab[i]; i = i + 1)
+		tab[i] = my_cleaner(tab[i]);
 	display_tab(tab);
 	return (tab);
 }

@@ -18,6 +18,9 @@ char *my_cleaner(char *str)
 	}
 	str = check_start_and_end(str);
 	str = check_inside_str(str);
+	for (i = 0; str[i]; i = i + 1)
+		if (str[i] == ' ' && str[i - 1] == ',')
+			str = my_shift_str(str, i);
 	return (str);
 }
 
@@ -25,9 +28,9 @@ char *check_start_and_end(char *str)
 {
 	int i = 0;
 
-	while (str[0] != '\0' && str[0] == ' ')
+	while (str[0] && str[0] == ' ')
 		str = str + 1;
-	i = my_strlen(str);
+	i = my_strlen(str) - 1;
 	while (i >= 0 && str[i] == ' ') {
 		str[i] = '\0';
 		i = i - 1;
@@ -41,7 +44,7 @@ char *check_inside_str(char *str)
 
 	while (str[i]) {
 		while (str[i] == ' ' &&
-		(str[i + 1] == ' ' || str[i + 1] == '\0'))
+		(str[i + 1] == ' ' || str[i + 1] == '\0') && str[i + 1])
 			str = my_shift_str(str, i);
 		i = i + 1;
 	}
