@@ -355,14 +355,14 @@ void check_instr(char **tab)
 	int y = 0;
 	int i = 0;
 
-	for (y = 0; tab[y]; y = y + 1)
-		for (x = 1; tab[y][x]; x = x + 1) {
-			if (tab[y][x] == ':' && tab[y][x - 1] != '%') {
-				for (i = 0; i < x; i = i + 1)
-					if (!is_label_char(tab[y][i]))
-						exit (84);
+	for (y = 0; tab[y] && tab[y][0]; y = y + 1)
+			for (x = 1; tab[y][x]; x = x + 1) {
+				if (tab[y][x] == ':' && tab[y][x - 1] != '%') {
+					for (i = 0; i < x; i = i + 1)
+						if (!is_label_char(tab[y][i]))
+							exit (84);
+				}
 			}
-		}
 	check_valid_instr(tab);
 }
 
