@@ -15,8 +15,6 @@ int sum_stdarg(int i, int nb, ...)
 	int x = 0;
 
 	va_start(list, nb);
-	if (i > 1 || i < 0)
-		return (84);
 	else if (i == 0) {
 		while (nb > 0) {
 			x = x + va_arg(list, int);
@@ -25,7 +23,7 @@ int sum_stdarg(int i, int nb, ...)
 		return (x);
 	} else if (i == 1) {
 		while (nb > 0) {
-			x = x + my_strlen(va_arg(list, char*));
+			x = x + my_strlen(va_arg(list, char *));
 			nb = nb - 1;
 		}
 		return (x);

@@ -66,8 +66,6 @@ int file_parser(char **file, int fd_s, char *new_name, int fd_cor)
 	if (len == -1)
 		exit(84);
 	lseek(fd_s, 0, SEEK_SET);
-	while (file[0] && (file[0][0] == '#' || file[0][0] == '.' || file[0][0] == '\0'))
-		file++;
 	inst = code_parser(file, len, inst);
 	if (inst == NULL)
 		return (84);
@@ -77,6 +75,6 @@ int file_parser(char **file, int fd_s, char *new_name, int fd_cor)
 		S_IRUSR | S_IRGRP | S_IWUSR | S_IWGRP);
 	if (write_head(fd_s, fd_cor, get_progsize(wrt_nbr)) == 84
 	|| write_inst(wrt_nbr, fd_cor) == 84)
-                return (84);
+		return (84);
 	return (0);
 }

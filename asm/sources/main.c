@@ -21,5 +21,5 @@ int main(int argc, char **argv)
 	new_name = get_name(argv[1]);
 	if (new_name == NULL)
 		return (84);
-	return(file_parser(file_to_tab(fd_s), fd_s, new_name, fd_cor));
+	return (file_parser(file_to_tab(fd_s), fd_s, new_name, fd_cor));
 }

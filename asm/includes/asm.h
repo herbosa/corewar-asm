@@ -24,10 +24,10 @@
 #define COMMENT_LENGTH 2048
 
 typedef struct header_s {
-   int  magic;
-   char prog_name[PROG_NAME_LENGTH + 1];
-   int  prog_size;
-   char comment[COMMENT_LENGTH + 1];
+	int  magic;
+	char prog_name[PROG_NAME_LENGTH + 1];
+	int  prog_size;
+	char comment[COMMENT_LENGTH + 1];
 } header_t;
 
 char **tab(char **argsv, char *name);
@@ -124,7 +124,7 @@ int find_name(int fd_s, header_t *head);
 void check_nbr_arg_3(char *str);
 void check_nbr_arg_2(char *str);
 void check_nbr_arg(char *str);
-void check_valid_instr_if(char **tab, int y, int x);
+void check_valid_instr_f(char **tab, int y, int x);
 void check_valid_instr(char **tab);
 int find_comment(int fd_s, header_t *head);
 int count_coma(char *str);

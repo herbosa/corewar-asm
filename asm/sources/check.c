@@ -55,7 +55,7 @@ void check_nbr_arg(char *str)
 	check_nbr_arg_3(str);
 }
 
-void check_valid_instr_if(char **tab, int y, int x)
+void check_valid_instr_f(char **tab, int y, int x)
 {
 	if (tab[y][0] != '.' && tab[y][0] != '#' && tab[y][x] == ' ') {
 		if (!verify_instr(tab[y], x)) {
@@ -74,5 +74,5 @@ void check_valid_instr(char **tab)
 
 	for (y = 2; tab[y]; y = y + 1)
 		for (x = 0; tab[y][x]; x = x + 1)
-			check_valid_instr_if(tab, y, x);
+			check_valid_instr_f(tab, y, x);
 }

@@ -55,7 +55,7 @@ int my_printf_switch(const char *format, int x, va_list list)
 {
 	switch (format[x]) {
 		case 's':
-			my_putstr(va_arg(list, char*));
+			my_putstr(va_arg(list, char *));
 			return (x);
 		case 'd':
 		case 'i':

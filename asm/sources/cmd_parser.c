@@ -33,6 +33,9 @@ char ***code_parser(char **file, int len, char ***inst)
 {
 	int i = 0;
 
+	while (file[0] && (file[0][0] == '#' || file[0][0] == '.' ||
+	file[0][0] == '\0'))
+		file++;
 	inst = malloc(sizeof(char ***) * (len * 5));
 	if (inst == NULL)
 		return (NULL);

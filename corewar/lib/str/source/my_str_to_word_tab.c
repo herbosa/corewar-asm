@@ -9,7 +9,7 @@
 
 char **my_str_to_word_tab(char *cmd, char c)
 {
-	char **tab = malloc(sizeof(char*) * my_strlen(cmd));
+	char **tab = malloc(sizeof(char *) * my_strlen(cmd));
 
 	cmd = my_cleaner(cmd);
 	tab[0] = malloc(sizeof(char) * my_strlen(cmd));

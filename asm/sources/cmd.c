@@ -62,7 +62,7 @@ void disp_strc(wrt_t ***wrt_nbr)
 	for (j = 0; wrt_nbr[i][j]; j = j + 1) {
 		my_putstr("nbr");
 		my_put_nbr(wrt_nbr[i][j]->nbr);
-	        my_putstr("size");
+		my_putstr("size");
 		my_put_nbr(wrt_nbr[i][j]->size);
 		my_putstr("\n");
 	}my_putstr("\n");}
