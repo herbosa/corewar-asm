@@ -63,7 +63,7 @@ int find_name(int fd_s, header_t *head)
 		}
 	}
 	name = get_header_name(name, s, 5);
-	if (name == NULL || verify_len(name, PROG_NAME_LENGTH) == - 1)
+	if (name == NULL || verify_len(name, PROG_NAME_LENGTH) == -1)
 		return (84);
 	fill_head_name(name, head);
 	return (0);

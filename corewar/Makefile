@@ -13,27 +13,17 @@ NAME	=	corewar
 
 CFLAGS	=	-W -Wall -Wextra -I includes -g
 
-LDFLAGS	=	-L ./lib/print -lprint -L ./lib/str -lstr
-
-all:	libmake $(NAME)
+all:	$(NAME)
 
 $(NAME): $(OBJ)
-	gcc -o $(NAME) $(OBJ) $(LDFLAGS)
-
-libmake:
-	make -C ./lib/print
-	make -C ./lib/str
+	gcc -o $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
-	make clean -C ./lib/print
-	make clean -C ./lib/str
 
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C ./lib/print
-	make fclean -C ./lib/str
 
 re:	fclean all
 
-.PHONY:	fclean clean all re libmake
+.PHONY:	fclean clean all re

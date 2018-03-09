@@ -24,7 +24,7 @@ int find_comment(int fd_s, header_t *head)
 		}
 	}
 	name = get_header_comment(name, s, 5);
-	if (name == NULL || verify_len(name, COMMENT_LENGTH) == - 1)
+	if (name == NULL || verify_len(name, COMMENT_LENGTH) == -1)
 		return (84);
 	fill_head_comment(name, head);
 	return (0);

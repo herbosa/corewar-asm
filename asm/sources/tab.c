@@ -15,7 +15,7 @@ char **tab(char **argsv, char *name)
 
 	argsv[0] = malloc((my_strlen(name) + 1) * sizeof(char));
 	while (name[k] != '\0') {
-		if (name[k] == ' ' || name[k] == ',' ) {
+		if (name[k] == ' ' || name[k] == ',') {
 			argsv[j][i] = '\0';
 			j = j + 1;
 			argsv[j] = malloc((my_strlen(name) + 1) * sizeof(char));
