@@ -65,8 +65,6 @@ int write_nbr_2(int nbr, int fd);
 int write_nbr_1(int nbr, int fd);
 int display_header_err(int bo);
 void disp_syntax_err(int nb);
-char *my_strcpy();
-void check_instr();
 int cmd_xor_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
 int cmd_xor_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
@@ -92,6 +90,7 @@ void cmd_live(char ***inst, wrt_t ***wrt_nbr, int i);
 void cmd_zjmp(char ***inst, wrt_t ***wrt_nbr, int i);
 void cmd_aff(char ***inst, wrt_t ***wrt_nbr, int i);
 void disp_strc(wrt_t ***wrt_nbr);
+wrt_t ***compile_file_3(char ***inst, wrt_t ***wrt_nbr, int i);
 wrt_t ***compile_file_2(char ***inst, wrt_t ***wrt_nbr, int i);
 wrt_t ***compile_file(char ***inst, int len);
 int get_progsize(wrt_t ***wrt_nbr);

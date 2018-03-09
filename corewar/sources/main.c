@@ -29,7 +29,8 @@ int my_strlen(char *str)
 	return (i);
 }
 
-void my_putstr(char *s) {
+void my_putstr(char *s)
+{
 	write(1, s, my_strlen(s));
 }
 

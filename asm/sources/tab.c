@@ -41,3 +41,15 @@ int my_tablen(char **tab)
 		i = i + 1;
 	return (i);
 }
+
+int get_progsize(wrt_t ***wrt_nbr)
+{
+	int res = 0;
+	int i = 0;
+	int j = 0;
+
+	for (i = 0; wrt_nbr[i]; i = i + 1)
+		for (j = 0; wrt_nbr[i][j]; j = j + 1)
+			res = res + wrt_nbr[i][j]->size;
+	return (res);
+}

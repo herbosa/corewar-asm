@@ -53,19 +53,3 @@ void cmd_aff(char ***inst, wrt_t ***wrt_nbr, int i)
 	wrt_nbr[i][2]->nbr = convert_param(param);
 	wrt_nbr[i][2]->size = 1;
 }
-
-/*void disp_strc(wrt_t ***wrt_nbr)
-{
-	int j = 0;
-	int i = 0;
-	for (i = 0; wrt_nbr[i]; i = i + 1) {
-		for (j = 0; wrt_nbr[i][j]; j = j + 1) {
-			my_putstr("nbr");
-			my_put_nbr(wrt_nbr[i][j]->nbr);
-			my_putstr("size");
-			my_put_nbr(wrt_nbr[i][j]->size);
-			my_putstr("\n");
-		}
-	my_putstr("\n");
-}
-}*/

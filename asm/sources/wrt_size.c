@@ -7,6 +7,17 @@
 
 #include "asm.h"
 
+wrt_t ***compile_file_3(char ***inst, wrt_t ***wrt_nbr, int i)
+{
+	if (my_strcmp(inst[i][0], "ldi\0") == 1)
+		cmd_ldi(inst, wrt_nbr, i);
+	if (my_strcmp(inst[i][0], "sti\0") == 1)
+		cmd_sti(inst, wrt_nbr, i);
+	if (my_strcmp(inst[i][0], "fork\0") == 1)
+		cmd_fork(inst, wrt_nbr, i);
+	return (wrt_nbr);
+}
+
 wrt_t ***compile_file_2(char ***inst, wrt_t ***wrt_nbr, int i)
 {
 	if (my_strcmp(inst[i][0], "live\0") == 1)
@@ -38,12 +49,7 @@ wrt_t ***compile_file(char ***inst, int len)
 	wrt_nbr = fill_wrt_struc(inst, len, wrt_nbr);
 	for (i = 0; inst[i]; i = i + 1) {
 		wrt_nbr = compile_file_2(inst, wrt_nbr, i);
-		if (my_strcmp(inst[i][0], "ldi\0") == 1)
-			cmd_ldi(inst, wrt_nbr, i);
-		if (my_strcmp(inst[i][0], "sti\0") == 1)
-			cmd_sti(inst, wrt_nbr, i);
-		if (my_strcmp(inst[i][0], "fork\0") == 1)
-			cmd_fork(inst, wrt_nbr, i);
+		wrt_nbr = compile_file_3(inst, wrt_nbr, i);
 		if (my_strcmp(inst[i][0], "lld\0") == 1)
 			cmd_lld(inst, wrt_nbr, i);
 		if (my_strcmp(inst[i][0], "lldi\0") == 1)
@@ -54,18 +60,6 @@ wrt_t ***compile_file(char ***inst, int len)
 			cmd_aff(inst, wrt_nbr, i);
 	}
 	return (wrt_nbr);
-}
-
-int get_progsize(wrt_t ***wrt_nbr)
-{
-	int res = 0;
-	int i = 0;
-	int j = 0;
-
-	for (i = 0; wrt_nbr[i]; i = i + 1)
-		for (j = 0; wrt_nbr[i][j]; j = j + 1)
-			res = res + wrt_nbr[i][j]->size;
-	return (res);
 }
 
 void write_wrt_nbr(wrt_t ***wrt_nbr, int fd_cor, int i, int j)
