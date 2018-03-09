@@ -15,7 +15,7 @@ int sum_stdarg(int i, int nb, ...)
 	int x = 0;
 
 	va_start(list, nb);
-	else if (i == 0) {
+	if (i == 0) {
 		while (nb > 0) {
 			x = x + va_arg(list, int);
 			nb = nb - 1;
