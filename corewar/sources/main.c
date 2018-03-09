@@ -39,14 +39,14 @@ void helper(void)
 	my_putstr("USAGE\n\t./corewar [-dump nbr_cycle] [[-n prog_number] [-a");
 	my_putstr(" load_address] prog_name] ...\n\nDESCRIPTION\n\t");
 	my_putstr("-dump nbr_cycle\tdumps the memory after the nbr_cycle");
-	my_putstr(" execution (if the round isn’t\n\t\t\talready over) with ");
-	my_putstr("the following format: 32 bytes/line in\n\t\t\thexadecimal");
-	my_putstr(" A0BCDEFE1DD3...)\n\t-n prog_number\tsets the next");
-	my_putstr(" program’s number. By default, the first free number\n\t\t");
-	my_putstr("\tin the parameter order\n\t-a load_address\tsets the");
-	my_putstr(" next program’s loading address. When no address is\n\t\t");
-	my_putstr("\tspecified, optimize the addresses so that the processes");
-	my_putstr(" are as far\n\t\t\taway from each other as possible. ");
+	my_putstr(" execution (if the round isn’t\n\t\t\talready over) with");
+	my_putstr(" the following format: 32 bytes/line in\n\t\t\thexadecim");
+	my_putstr("al A0BCDEFE1DD3...)\n\t-n prog_number\tsets the next");
+	my_putstr(" program’s number. By default, the first free number\n\t");
+	my_putstr("\t\tin the parameter order\n\t-a load_address\tsets the");
+	my_putstr(" next program’s loading address. When no address is\n\t");
+	my_putstr("\t\tspecified, optimize the addresses so that the process");
+	my_putstr("es are as far\n\t\t\taway from each other as possible. ");
 	my_putstr("The addresses are MEM_SIZE modulo\n");
 }
 
