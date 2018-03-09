@@ -5,14 +5,17 @@
 ## Makefile
 ##
 
-SRC	=	sources/main.c\
-		sources/write_nbr.c\
-		sources/cmd_parser.c\
-		sources/get_next_line.c\
-		sources/get_next_line_2.c\
-		sources/error_handling.c\
-		sources/tab.c\
-		sources/ldi_intstr.c
+SRC	=	sources/main.c			\
+		sources/write_nbr.c		\
+		sources/cmd_parser.c		\
+		sources/get_next_line.c		\
+		sources/get_next_line_2.c	\
+		sources/error_handling.c	\
+		sources/tab.c			\
+		sources/ldi_intstr.c		\
+		sources/lldi_instr.c		\
+		sources/sti_instr.c		\
+		sources/convert_cmd_param.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

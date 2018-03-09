@@ -38,6 +38,20 @@ int cmd_ldi_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
 void cmd_ldi(char ***inst, wrt_t ***wrt_nbr, int i);
 int convert_param(int param);
+int cmd_and_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+int cmd_and_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+void cmd_and(char ***inst, wrt_t ***wrt_nbr, int i);
+int cmd_lldi_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+int cmd_lldi_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+void cmd_lldi(char ***inst, wrt_t ***wrt_nbr, int i);
+int cmd_sti_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+int cmd_sti_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
 int write_nbr();
 int write_head(int fd_s, int fd_cor, int a);
 int write_nbr_2(int nbr, int fd);
