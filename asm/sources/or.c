@@ -71,3 +71,9 @@ void cmd_or(char ***inst, wrt_t ***wrt_nbr, int i)
 	wrt_nbr[i][4]->nbr = convert_param(param);
 	wrt_nbr[i][4]->size = 1;
 }
+
+void check_lbl(char *s, int x)
+{
+	if (x >= 2 && s[x - 2] == '%')
+		exit(84);
+}

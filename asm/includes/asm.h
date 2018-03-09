@@ -136,5 +136,6 @@ int write_head(int fd_s, int fd_cor, int a);
 char **clean_label(char *s, int *i, char **tab);
 char **file_to_tab(int fd_s);
 int is_label_char(char c);
+void check_lbl(char *s, int x);
 
 #endif
