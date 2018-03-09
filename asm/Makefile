@@ -22,6 +22,14 @@ SRC	=	sources/main.c			\
 		sources/cmd_st_fork.c		\
 		sources/cmd.c			\
 		sources/wrt_size.c		\
+		sources/label.c			\
+		sources/strcpy.c		\
+		sources/strcat.c		\
+		sources/get_header_name.c	\
+		sources/head.c			\
+		sources/check.c			\
+		sources/check_intstr.c		\
+		sources/the_last_file.c
 
 OBJ	=	$(SRC:.c=.o)
 
