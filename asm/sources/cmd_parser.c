@@ -36,6 +36,8 @@ int my_tablen(char **tab)
 {
 	int i = 0;
 
+	if (!tab)
+		return (-1);
 	while (tab[i])
 		i = i + 1;
 	return (i);
@@ -957,6 +959,8 @@ int file_parser(char **file, int fd_s, int fd_cor)
 	char ***inst = NULL;
 	wrt_t ***wrt_nbr;
 
+	if (len == -1)
+		exit(84);
 	lseek(fd_s, 0, SEEK_SET);
 	while (file[0] && (file[0][0] == '#' || file[0][0] == '.' || file[0][0] == '\0'))
 		file++;
