@@ -6,42 +6,6 @@
 */
 
 #include "asm.h"
-#include "parser.h"
-
-char **tab(char **argsv, char *name)
-{
-	int i = 0;
-	int j = 0;
-	int k = 0;
-
-	argsv[0] = malloc((my_strlen(name) + 1) * sizeof(char));
-	while (name[k] != '\0') {
-		if (name[k] == ' ' || name[k] == ',' ) {
-			argsv[j][i] = '\0';
-			j = j + 1;
-			argsv[j] = malloc((my_strlen(name) + 1) * sizeof(char));
-			i = 0;
-		} else {
-			argsv[j][i] = name[k];
-			i = i + 1;
-		}
-		k = k + 1;
-	}
-	argsv[j][i] = '\0';
-	argsv[j + 1] = '\0';
-	return (argsv);
-}
-
-int my_tablen(char **tab)
-{
-	int i = 0;
-
-	if (!tab)
-		return (-1);
-	while (tab[i])
-		i = i + 1;
-	return (i);
-}
 
 wrt_t ***fill_wrt_struc(char ***inst, int len, wrt_t ***wrt_nbr)
 {
@@ -116,70 +80,6 @@ int convert_param(int param)
 		param = param / 10;
 	}
 	return (res);
-}
-
-
-int cmd_ldi_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
-				int param)
-{
-	if (my_strncmp(inst[i][2], "r", 1) == 1) {
-		inst[i][2]++;
-		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
-		wrt_nbr[i][2]->size = 1;
-		param = param + 100;
-	} else if (my_strncmp(inst[i][2], "%", 1) == 1) {
-		inst[i][2]++;
-		wrt_nbr[i][2]->nbr = my_atoi(inst[i][2]);
-		wrt_nbr[i][2]->size = 2;
-		param = param + 1000;
-	} else {
-		my_puterr("invalid comand in ldi");
-		exit(84);
-	}
-	return (param);
-}
-
-int cmd_ldi_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
-				int param)
-{
-	wrt_nbr[i][0]->nbr = 10;
-	wrt_nbr[i][0]->size = 1;
-	if (my_strncmp(inst[i][1], "r", 1) == 1) {
-		inst[i][1]++;
-		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
-		wrt_nbr[i][1]->size = 1;
-		param = param + 10000;
-	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
-		inst[i][1]++;
-		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
-		wrt_nbr[i][1]->size = 2;
-		param = param + 100000;
-	} else {
-		if (my_str_is_num(inst[i][1]) == 1)
-			wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
-		wrt_nbr[i][1]->size = 2;
-		param = param + 110000;
-	}
-	return (param);
-}
-
-void cmd_ldi(char ***inst, wrt_t ***wrt_nbr, int i)
-{
-	int param = 0;
-
-	param = cmd_ldi_first_param(inst, wrt_nbr, i, param);
-	param = cmd_ldi_second_param(inst, wrt_nbr, i, param);
-	if (my_strncmp(inst[i][3], "r", 1) == 1) {
-		inst[i][3]++;
-		wrt_nbr[i][3]->nbr = my_atoi(inst[i][3]);
-		wrt_nbr[i][3]->size = 1;
-		param = param + 1;
-	} else {
-		my_puterr("invalid instruction in ldi");
-		exit(84);
-	}
-	wrt_nbr[i][4]->nbr = convert_param(param);
-	wrt_nbr[i][4]->size = 1;
 }
 
 int cmd_lldi_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
@@ -870,7 +770,7 @@ void write_wrt_nbr(wrt_t ***wrt_nbr, int fd_cor, int i, int j)
 			write_nbr_2(wrt_nbr[i][j]->nbr, fd_cor);
 		if (wrt_nbr[i][j]->size == 4)
 			write_nbr(wrt_nbr[i][j]->nbr, fd_cor);
-	} else 
+	} else
 		write_nbr_2((wrt_nbr[i][j]->nbr + 65536), fd_cor);
 }
 
@@ -917,7 +817,7 @@ int get_progsize_between_two_value(wrt_t ***wrt_nbr, int x, int y)
 	return (res);
 }
 
-int get_label_value(char ***inst, wrt_t ***wrt_nbr, int x, int i)
+int get_label_value(wrt_t ***wrt_nbr, int x, int i)
 {
 	int res = 0;
 
@@ -936,7 +836,7 @@ wrt_t ***get_label(char ***inst, wrt_t ***wrt_nbr, int i, int j)
 	if (inst[i][j][0] && inst[i][j][0] == ':') {
 		inst[i][j]++;
 		x = get_label_pos(inst[i][j], inst);
-		nbr_result = get_label_value(inst, wrt_nbr, x, i);
+		nbr_result = get_label_value(wrt_nbr, x, i);
 		wrt_nbr[i][j]->nbr = nbr_result;
 	}
 	return (wrt_nbr);

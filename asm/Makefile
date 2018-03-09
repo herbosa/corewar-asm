@@ -10,7 +10,9 @@ SRC	=	sources/main.c\
 		sources/cmd_parser.c\
 		sources/get_next_line.c\
 		sources/get_next_line_2.c\
-		sources/error_handling.c
+		sources/error_handling.c\
+		sources/tab.c\
+		sources/ldi_intstr.c
 
 OBJ	=	$(SRC:.c=.o)
 

@@ -392,38 +392,52 @@ int verify_instr(char *str, int i)
 		return (0);
 }
 
+void check_valid_instr_if(char **tab, int y, int x)
+{
+	if (tab[y][0] != '.' && tab[y][0] != '#' && tab[y][x] == ' ') {
+		if (!verify_instr(tab[y], x)) {
+			my_puterr("Unknow instruction :\t");
+			my_puterr(tab[y]);
+			my_puterr("\n");
+			exit (84);
+		}
+	}
+}
+
 void check_valid_instr(char **tab)
 {
 	int x = 0;
 	int y = 0;
-	int i = 0;
 
 	for (y = 2; tab[y]; y = y + 1)
 		for (x = 0; tab[y][x]; x = x + 1)
-			if (tab[y][0] != '.' && tab[y][0] != '#' && tab[y][x] == ' ') {
-				if (!verify_instr(tab[y], x)) {
-					my_puterr("Unknow instruction :\t");
-					my_puterr(tab[y]);
-					my_puterr("\n");
-					exit (84);
-				}
-			}
+			check_valid_instr_if(tab, y, x);
+}
+
+void check_instr_thrd(char **tab, int *x, int *y, int *i)
+{
+	for (*i = 0; *i < *x; *i = *i + 1)
+		if (!is_label_char(tab[*y][*i]))
+			exit (84);
+}
+
+void check_initstr_sec(char **tab, int *x, int *y)
+{
+	int i = 0;
+
+	for (*x = 1; tab[*y][*x]; *x = *x + 1) {
+		if (tab[*y][*x] == ':' && tab[*y][*x - 1] != '%')
+			check_instr_thrd(tab, x, y, &i);
+	}
 }
 
 void check_instr(char **tab)
 {
 	int x = 0;
 	int y = 0;
-	int i = 0;
 
 	for (y = 0; tab[y] && tab[y][0]; y = y + 1)
-			for (x = 1; tab[y][x]; x = x + 1) {
-				if (tab[y][x] == ':' && tab[y][x - 1] != '%') {
-					for (i = 0; i < x; i = i + 1)
-						if (!is_label_char(tab[y][i]))
-							exit (84);
-				}
-			}
+		check_initstr_sec(tab, &x, &y);
 	check_valid_instr(tab);
 }
 
