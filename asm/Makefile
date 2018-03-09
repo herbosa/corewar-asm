@@ -17,6 +17,11 @@ SRC	=	sources/main.c			\
 		sources/sti_instr.c		\
 		sources/convert_cmd_param.c	\
 		sources/xor.c			\
+		sources/or.c			\
+		sources/cmd_sub_add.c		\
+		sources/cmd_st_fork.c		\
+		sources/cmd.c			\
+		sources/wrt_size.c		\
 
 OBJ	=	$(SRC:.c=.o)
 

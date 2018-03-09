@@ -37,6 +37,9 @@ int cmd_ldi_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 int cmd_ldi_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
 void cmd_ldi(char ***inst, wrt_t ***wrt_nbr, int i);
+int cmd_ld_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+void cmd_ld(char ***inst, wrt_t ***wrt_nbr, int i);
 int convert_param(int param);
 int cmd_and_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
@@ -48,10 +51,14 @@ int cmd_lldi_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 int cmd_lldi_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
 void cmd_lldi(char ***inst, wrt_t ***wrt_nbr, int i);
+int cmd_lld_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+void cmd_lld(char ***inst, wrt_t ***wrt_nbr, int i);
 int cmd_sti_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
 int cmd_sti_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
+void cmd_sti(char ***inst, wrt_t ***wrt_nbr, int i);
 int write_nbr();
 int write_head(int fd_s, int fd_cor, int a);
 int write_nbr_2(int nbr, int fd);
@@ -65,6 +72,31 @@ int cmd_xor_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 int cmd_xor_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param);
 void cmd_xor(char ***inst, wrt_t ***wrt_nbr, int i);
-
+int cmd_or_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+int cmd_or_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+void cmd_or(char ***inst, wrt_t ***wrt_nbr, int i);
+int cmd_sub_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+			int param);
+void cmd_sub(char ***inst, wrt_t ***wrt_nbr, int i);
+int cmd_add_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+			int param);
+void cmd_add(char ***inst, wrt_t ***wrt_nbr, int i);
+int cmd_st_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+void cmd_st(char ***inst, wrt_t ***wrt_nbr, int i);
+void cmd_fork(char ***inst, wrt_t ***wrt_nbr, int i);
+void cmd_lfork(char ***inst, wrt_t ***wrt_nbr, int i);
+void cmd_live(char ***inst, wrt_t ***wrt_nbr, int i);
+void cmd_zjmp(char ***inst, wrt_t ***wrt_nbr, int i);
+void cmd_aff(char ***inst, wrt_t ***wrt_nbr, int i);
+void disp_strc(wrt_t ***wrt_nbr);
+wrt_t ***compile_file_2(char ***inst, wrt_t ***wrt_nbr, int i);
+wrt_t ***compile_file(char ***inst, int len);
+int get_progsize(wrt_t ***wrt_nbr);
+void write_wrt_nbr(wrt_t ***wrt_nbr, int fd_cor, int i, int j);
+int write_inst(wrt_t ***wrt_nbr, int fd_cor);
+wrt_t ***fill_wrt_struc(char ***inst, int len, wrt_t ***wrt_nbr);
 
 #endif
