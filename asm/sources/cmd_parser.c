@@ -69,7 +69,7 @@ int my_ten_pow(int n)
 	return (res);
 }
 
-int cmd_xor_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+/*int cmd_xor_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param)
 {
 	if (my_strncmp(inst[i][2], "r", 1) == 1) {
@@ -132,7 +132,7 @@ void cmd_xor(char ***inst, wrt_t ***wrt_nbr, int i)
 	}
 	wrt_nbr[i][4]->nbr = convert_param(param);
 	wrt_nbr[i][4]->size = 1;
-}
+}*/
 
 int cmd_or_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param)

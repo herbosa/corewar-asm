@@ -60,5 +60,11 @@ int display_header_err(int bo);
 void disp_syntax_err(int nb);
 char *my_strcpy();
 void check_instr();
+int cmd_xor_second_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+int cmd_xor_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
+				int param);
+void cmd_xor(char ***inst, wrt_t ***wrt_nbr, int i);
+
 
 #endif

@@ -417,7 +417,7 @@ void check_valid_instr(char **tab)
 void check_instr_thrd(char **tab, int *x, int *y, int *i)
 {
 	for (*i = 0; *i < *x; *i = *i + 1)
-		if (!is_label_char(tab[*y][*i]))
+		if (!is_label_char(tab[*y][*i]) && tab[*y][0] != '#')
 			exit (84);
 }
 

@@ -16,6 +16,7 @@ SRC	=	sources/main.c			\
 		sources/lldi_instr.c		\
 		sources/sti_instr.c		\
 		sources/convert_cmd_param.c	\
+		sources/xor.c			\
 
 OBJ	=	$(SRC:.c=.o)
 
