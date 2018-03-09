@@ -505,13 +505,13 @@ int cmd_ld_first_param(char ***inst, wrt_t ***wrt_nbr, int i,
 				int param)
 {
 	if (my_strncmp(inst[i][1], "r", 1) == 1) {
-		inst[i][1]++;
-		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
-		wrt_nbr[i][1]->size = 1;
-		param = param + 10000;
-	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
 		my_puterr("invalid instruction in ld");
 		exit(84);
+	} else if (my_strncmp(inst[i][1], "%", 1) == 1) {
+		inst[i][1]++;
+		wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
+		wrt_nbr[i][1]->size = 2;
+		param = param + 100000;
 	} else {
 		if (my_str_is_num(inst[i][1]) == 1)
 			wrt_nbr[i][1]->nbr = my_atoi(inst[i][1]);
@@ -798,7 +798,7 @@ void disp_strc(wrt_t ***wrt_nbr)
 	}my_putstr("\n");}
 }
 
-wrt_t*** compile_file_2(char ***inst, wrt_t ***wrt_nbr, int i)
+wrt_t ***compile_file_2(char ***inst, wrt_t ***wrt_nbr, int i)
 {
 	if (my_strcmp(inst[i][0], "live\0") == 1)
 		cmd_live(inst, wrt_nbr, i);
@@ -821,7 +821,7 @@ wrt_t*** compile_file_2(char ***inst, wrt_t ***wrt_nbr, int i)
 	return (wrt_nbr);
 }
 
-wrt_t*** compile_file(char ***inst, int len)
+wrt_t ***compile_file(char ***inst, int len)
 {
 	int i = 0;
 	wrt_t ***wrt_nbr = NULL;
