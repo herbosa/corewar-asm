@@ -953,7 +953,7 @@ wrt_t ***parse_label(char ***inst, wrt_t ***wrt_nbr)
 	return (wrt_nbr);
 }
 
-int file_parser(char **file, int fd_s, int fd_cor)
+int file_parser(char **file, int fd_s, char *new_name, int fd_cor)
 {
 	int len = my_tablen(file);
 	char ***inst = NULL;
@@ -969,9 +969,10 @@ int file_parser(char **file, int fd_s, int fd_cor)
 		return (84);
 	wrt_nbr = compile_file(inst, len);
 	wrt_nbr = parse_label(inst, wrt_nbr);
-	if (write_head(fd_s, fd_cor, get_progsize(wrt_nbr)) == 84)
-		return (84);
-	if (write_inst(wrt_nbr, fd_cor) == 84)
+	fd_cor = open(new_name, O_CREAT | O_RDWR, S_IROTH |
+		S_IRUSR | S_IRGRP | S_IWUSR | S_IWGRP);
+	if (write_head(fd_s, fd_cor, get_progsize(wrt_nbr)) == 84
+	|| write_inst(wrt_nbr, fd_cor) == 84)
                 return (84);
 	return (0);
 }
